@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Stack Developer | Custom Software Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+            /* Light background for contrast */
+        }
+
+        .hero-bg {
+            background-color: #1a202c;
+            /* Dark blue/black */
+            /* Gradient overlay for dynamic look */
+            background-image: radial-gradient(at 0% 0%, #3f51b5 0%, transparent 50%), radial-gradient(at 100% 100%, #17b3a6 0%, transparent 50%);
+        }
+
+        .cta-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(25, 179, 166, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(25, 179, 166, 0.6);
+        }
+
+        /* Custom styles for the terminal mockup syntax highlighting */
+        .terminal-code {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .text-purple-400 {
+            color: #cf93ff;
+        }
+
+        /* Numbers */
+        .text-red-400 {
+            color: #f98e72;
+        }
+
+        /* Keywords */
+        .text-yellow-400 {
+            color: #ffe484;
+        }
+
+        /* Variables/Classes */
+        .text-pink-400 {
+            color: #ff9dcb;
+        }
+
+        /* Parameters */
+        .text-orange-300 {
+            color: #a9f0d1;
+        }
+
+        /* Strings */
+
+        /* Custom style for professional project card hover effect */
+        .project-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            border-color: #3f51b5;
+        }
+
+        /* --- NEW FAQ SPECIFIC STYLES --- */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+            padding-left: 1.5rem;
+            /* Indent content */
+            padding-right: 1.5rem;
+            /* Indent content */
+        }
+
+        /* Style for the answer content when revealed - using theme color teal for the border accent */
+        .faq-answer-content {
+            padding-top: 0.5rem;
+            padding-bottom: 1rem;
+            border-left: 4px solid #17b3a6;
+            padding-left: 1.5rem;
+        }
+
+        /* This ensures the toggle icon rotates when the answer is expanded */
+        .toggle-icon.rotate-45 {
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+
+<body class="text-gray-800">
+
+    <header class="bg-gray-900 shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between relative">
+            <div class="text-2xl font-extrabold text-[#17b3a6] z-50">
+                &lt;Kashaf Shoukat /&gt;
+            </div>
+
+            <nav
+                class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 space-x-6 hidden lg:flex items-center">
+                <a href="#" class="text-gray-300 hover:text-[#17b3a6] font-medium transition duration-300">Home</a>
+                <a href="#our-services"
+                    class="text-gray-300 hover:text-[#17b3a6] font-medium transition duration-300">Services</a>
+                <a href="#projects"
+                    class="text-gray-300 hover:text-[#17b3a6] font-medium transition duration-300">Portfolio</a>
+                <a href="#reviews"
+                    class="text-gray-300 hover:text-[#17b3a6] font-medium transition duration-300">Clients Reviews</a>
+                <a href="#faq" class="text-gray-300 hover:text-[#17b3a6] font-medium transition duration-300">FAQ</a>
+                <a href="#contact"
+                    class="text-gray-300 hover:text-[#17b3a6] font-medium transition duration-300">About</a>
+            </nav>
+
+            <div class="ml-auto flex items-center space-x-4">
+                <a href="#contact"
+                    class="inline-block px-4 sm:px-6 py-2 sm:py-3 bg-[#17b3a6] text-white font-semibold rounded-lg hover:bg-teal-600 transition duration-300 text-sm sm:text-base hidden lg:inline-block">
+                    Contact Me Now &rarr;
+                </a>
+
+                <button id="mobile-menu-button"
+                    class="lg:hidden text-white hover:text-[#17b3a6] text-2xl p-2 rounded-lg transition duration-300 z-50"
+                    aria-label="Open Menu" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-sidebar"
+            class="fixed top-0 right-0 w-64 h-full bg-gray-900 shadow-2xl z-40 transform translate-x-full transition-transform duration-500 ease-in-out lg:hidden">
+            <div class="p-6 pt-20 flex flex-col space-y-8">
+                <a href="#" class="mt-8 text-gray-300 hover:text-[#17b3a6] text-lg font-medium transition duration-300"
+                    onclick="toggleSidebar()">Home</a>
+                <a href="#our-services"
+                    class="text-gray-300 hover:text-[#17b3a6] text-lg font-medium transition duration-300"
+                    onclick="toggleSidebar()">Services</a>
+                <a href="#projects"
+                    class="text-gray-300 hover:text-[#17b3a6] text-lg font-medium transition duration-300"
+                    onclick="toggleSidebar()">Portfolio</a>
+                <a href="#reviews"
+                    class="text-gray-300 hover:text-[#17b3a6] text-lg font-medium transition duration-300"
+                    onclick="toggleSidebar()">Clients Reviews</a>
+                <a href="#faq" class="text-gray-300 hover:text-[#17b3a6] text-lg font-medium transition duration-300"
+                    onclick="toggleSidebar()">FAQ</a>
+                <a href="#contact"
+                    class="text-gray-300 hover:text-[#17b3a6] text-lg font-medium transition duration-300"
+                    onclick="toggleSidebar()">About</a>
+                <a href="#contact"
+                    class="inline-block mt-4 px-4 py-2 bg-[#17b3a6] text-white font-semibold rounded-lg hover:bg-teal-600 transition duration-300 text-center"
+                    onclick="toggleSidebar()">
+                    Hire Me Now &rarr;
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-bg py-18 sm:py-16 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="text-lg font-medium text-[#17b3a6] uppercase tracking-wider mb-4 block">
+                Full-Stack Solutions Architect
+            </span>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-6">
+                I Transform Ideas into <br class="hidden sm:inline">
+                <span class="text-[#17b3a6] inline-block mt-2">Scalable Digital Products.</span>
+            </h1>
+            <p class="text-xl max-w-3xl mx-auto mb-10 opacity-80">
+                From robust backend architecture and APIs to pixel-perfect, modern frontends I deliver end-to-end web
+                applications that drive real business results.
+            </p>
+            <a href="#contact"
+                class="inline-block px-6 py-3 bg-[#17b3a6] text-white font-semibold rounded-lg hover:bg-teal-600 transition duration-300">
+                Start your Project Today &rarr;
+            </a>
+            <p class="mt-4 text-sm opacity-70">
+                (Available for freelance projects and long-term partnerships.)
+            </p>
+        </div>
+         <div class="flex justify-center space-x-6 pt-4">
+                <a href="#" class="text-white hover:text-[#17b3a6] text-2xl transition duration-300"
+                    aria-label="LinkedIn">
+                    <span class="font-sans"><i class="fa-brands fa-linkedin"></i></span>
+                </a>
+                <a href="#" class="text-white hover:text-[#17b3a6] text-2xl transition duration-300"
+                    aria-label="LinkedIn">
+                    <span class="font-sans"><i class="fa-brands fa-instagram"></i></span>
+                </a>
+                <a href="#" class="text-white hover:text-[#17b3a6] text-2xl transition duration-300"
+                    aria-label="LinkedIn">
+                    <span class="font-sans"><i class="fa-brands fa-whatsapp"></i></span>
+                </a>
+               <a href="#" class="text-white hover:text-[#17b3a6] text-2xl transition duration-300"
+                    aria-label="LinkedIn">
+                    <span class="font-sans"><i class="fa fa-envelope" ></i>
+</span>
+                </a>
+            </div>
+    </section>
+
+    <section id="our-services" class="py-8 sm:py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 text-gray-900">
+                Our Services
+            </h2>
+            <p class="text-gray-600 max-w-3xl mx-auto mb-16">
+                Beyond full-stack development, I offer specialized platform integration and custom solutions tailored to
+                your business model.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <div
+                    class="p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition duration-300 border-t-4 border-[#3f51b5] text-center">
+                    <span class="text-4xl block text-[#3f51b5] mb-3">🌐</span>
+                    <h3 class="text-xl font-bold mb-2">WordPress</h3>
+                    <p class="text-gray-600 text-sm">Versatile CMS for dynamic websites with endless customization
+                        possibilities.</p>
+                </div>
+                <div
+                    class="p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition duration-300 border-t-4 border-[#17b3a6] text-center">
+                    <span class="text-4xl block text-[#17b3a6] mb-3">🛒</span>
+                    <h3 class="text-xl font-bold mb-2">Shopify</h3>
+                    <p class="text-gray-600 text-sm">E-commerce made easy, seamless, and scalable for your online
+                        business needs.</p>
+                </div>
+                <div
+                    class="p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition duration-300 border-t-4 border-yellow-500 text-center">
+                    <span class="text-4xl block text-yellow-500 mb-3">🧱</span>
+                    <h3 class="text-xl font-bold mb-2">Wix</h3>
+                    <p class="text-gray-600 text-sm">Intuitive drag-and-drop platform to create stunning websites
+                        quickly
+                        and hassle-free.</p>
+                </div>
+
+
+                <div
+                    class="p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition duration-300 border-t-4 border-[#3f51b5] text-center">
+                    <span class="text-4xl block text-[#3f51b5] mb-3">💻</span>
+                    <h3 class="text-xl font-bold mb-2">Custom Web Development</h3>
+                    <p class="text-gray-600 text-sm">Tailored solutions for unique business requirements, covering
+                        bespoke
+                        functionality and deep integration.</p>
+                </div>
+
+
+
+                <div
+                    class="p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition duration-300 border-t-4 border-red-500 text-center">
+                    <span class="text-4xl block text-red-500 mb-3">🔧</span>
+                    <h3 class="text-xl font-bold mb-2">Debugging & Optimization</h3>
+                    <p class="text-gray-600 text-sm">Expert correction of bugs, performance bottlenecks, and security
+                        issues in existing web applications.</p>
+                </div>
+
+                <div
+                    class="p-6 bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition duration-300 border-t-4 border-yellow-500 text-center">
+                    <span class="text-4xl block text-yellow-500 mb-3">🚀</span>
+                    <h3 class="text-xl font-bold mb-2">Full-Stack App Development</h3>
+                    <p class="text-gray-600 text-sm">End-to-end planning, architecture, development, and deployment of
+                        robust, scalable web applications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech-stack" class="py-8 sm:py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">
+                Full-Stack Expertise: Code That Converts
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto mb-12">
+                My work spans the entire application lifecycle, ensuring security, performance, and maintainability from
+                the server to the browser.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-2 gap-8">
+                <div
+                    class="p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 border-t-4 border-[#3f51b5]">
+                    <span class="text-3xl mb-2 block">🎨</span>
+                    <h3 class="text-xl font-bold mb-2">Frontend</h3>
+                    <p class="text-gray-600 text-sm">React, Next.js, TypeScript, Tailwind CSS, State Management
+                        (Zustand/Redux).</p>
+                </div>
+                <div
+                    class="p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 border-t-4 border-[#17b3a6]">
+                    <span class="text-3xl mb-2 block">⚙️</span>
+                    <h3 class="text-xl font-bold mb-2">Backend & APIs</h3>
+                    <p class="text-gray-600 text-sm">Node.js (Express), Python (Django/Flask), REST/GraphQL API Design,
+                        Authentication.</p>
+                </div>
+                <div
+                    class="p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 border-t-4 border-yellow-500">
+                    <span class="text-3xl mb-2 block">💾</span>
+                    <h3 class="text-xl font-bold mb-2">Database</h3>
+                    <p class="text-gray-600 text-sm">PostgreSQL, MongoDB, MySQL. Schema design, query optimization, and
+                        data modeling.</p>
+                </div>
+                <div
+                    class="p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 border-t-4 border-red-500">
+                    <span class="text-3xl mb-2 block">☁️</span>
+                    <h3 class="text-xl font-bold mb-2">Deployment/DevOps</h3>
+                    <p class="text-gray-600 text-sm">AWS, Docker, Vercel/Netlify, CI/CD pipelines, Git version control.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about-me" class="py-8 sm:py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="md:flex md:items-center md:space-x-12">
+
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <div class="bg-gray-800 text-sm p-6 rounded-2xl shadow-2xl overflow-hidden terminal-code h-96 flex flex-col justify-start relative transform hover:scale-[1.01] transition duration-500"
+                        style="border-left: 5px solid #17b3a6; box-shadow: 0 10px 30px rgba(23, 179, 166, 0.3);">
+                        <div class="flex items-center space-x-2 pb-4 border-b border-gray-700 mb-4">
+                            <div class="h-3 w-3 bg-red-500 rounded-full"></div>
+                            <div class="h-3 w-3 bg-yellow-500 rounded-full"></div>
+                            <div class="h-3 w-3 bg-green-500 rounded-full"></div>
+                            <span class="text-xs text-gray-400 ml-4">Architecture.js</span>
+                        </div>
+                        <pre class="text-white whitespace-pre-wrap overflow-auto leading-relaxed">
+<span class="text-[#3f51b5]">const</span> <span class="text-yellow-400">KashafShoukat</span> = <span class="text-red-400">class</span> {
+    <span class="text-[#17b3a6]">constructor</span>(<span class="text-pink-400">problem</span>) {
+        <span class="text-red-400">this</span>.<span class="text-yellow-400">goal</span> = <span class="text-orange-300">'ScalableSolution'</span>;
+        <span class="text-red-400">this</span>.<span class="text-yellow-400">focus</span> = <span class="text-orange-300">'HighPerformance'</span>;
+    }
+
+    <span class="text-[#17b3a6]">buildBackend</span>(<span class="text-pink-400">dataModel</span>) {
+        <span class="text-red-400">if</span> (dataModel.<span class="text-yellow-400">complexity</span> > <span class="text-purple-400">100</span>) {
+            <span class="text-red-400">return</span> <span class="text-yellow-400">deploy</span>(<span class="text-orange-300">'Node.js + Postgres'</span>);
+        } <span class="text-red-400">else</span> {
+            <span class="text-red-400">return</span> <span class="text-yellow-400">deploy</span>(<span class="text-orange-300">'Python + MongoDB'</span>);
+        }
+    }
+
+    <span class="text-[#17b3a6]">optimizeFrontend</span>(<span class="text-pink-400">design</span>) {
+        <span class="text-red-400">return</span> <span class="text-yellow-400">render</span>(<span class="text-orange-300">'React/Next.js'</span>, <span class="text-yellow-400">with</span> <span class="text-orange-300">'Tailwind CSS'</span>);
+    }
+
+    <span class="text-[#17b3a6]">solve</span>(<span class="text-pink-400">clientReqs</span>) {
+        <span class="text-yellow-400">const</span> backend = <span class="text-red-400">this</span>.<span class="text-yellow-400">buildBackend</span>(<span class="text-pink-400">clientReqs</span>.data);
+        <span class="text-yellow-400">const</span> frontend = <span class="text-red-400">this</span>.<span class="text-yellow-400">optimizeFrontend</span>(<span class="text-pink-400">clientReqs</span>.design);
+        <span class="text-red-400">console</span>.<span class="text-[#17b3a6]">log</span>(<span class="text-orange-300">`Product Ready: ${backend} & ${frontend}`</span>);
+        <span class="text-red-400">return</span> <span class="text-red-400">true</span>;
+    }
+}
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 text-left">
+                    <span class="text-lg font-medium text-[#17b3a6] uppercase tracking-wider mb-2 block">
+                        About Kashaf Shoukat
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6">
+                        Building Digital Futures, One Line of Code at a Time.
+                    </h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        I am a dedicated Full-Stack Solutions Architect with a passion for transforming complex business
+                        requirements into elegant, high-performance web applications. My philosophy centers on
+                        architecture that is not just functional, but inherently scalable, maintainable, and secure.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        With deep expertise across the modern JavaScript ecosystem (React/Next.js) and robust backend
+                        technologies (Node.js, Python), I specialize in tackling the toughest integration challenges,
+                        optimizing legacy systems, and delivering a flawless user experience. I thrive on the entire
+                        project lifecycle from initial concept wireframes to final cloud deployment.
+                    </p>
+                    <a href="#contact"
+                        class="inline-block px-6 py-3 bg-[#17b3a6] text-white font-semibold rounded-lg hover:bg-teal-600 transition duration-300">
+                        Discuss Your Vision &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-8 sm:py-12 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-4 text-gray-900">
+                Featured Work: Case Studies in Scalability
+            </h2>
+            <p class="text-gray-600 text-center max-w-3xl mx-auto mb-16">
+                I focus on complex challenges, delivering solutions that are technically sound and strategically
+                valuable. Click to explore the architecture behind each product.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+                <div class="project-card bg-white rounded-xl shadow-lg flex flex-col overflow-hidden">
+                    <div class="bg-[#f0f4ff] p-4 flex items-center justify-center">
+                        <img src="https://i0.wp.com/inventoryplus.in/images/PurchaseEntryScreen.jpg?w=1080&ssl=1"
+                            alt="E-commerce Project Screenshot"
+                            class="rounded-lg shadow-xl w-full h-auto object-cover border-4 border-white"
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x350/3f51b5/ffffff?text=Project+1+Dashboard';">
+                    </div>
+
+                    <div class="p-6">
+                        <span class="text-sm font-semibold uppercase text-[#17b3a6] tracking-wider">Full-Stack SaaS
+                            Application</span>
+                        <h3 class="text-2xl font-bold mt-1 mb-3 text-gray-900">Custom Inventory & Billing Portal</h3>
+
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span
+                                class="bg-[#3f51b5]/10 text-[#3f51b5] text-xs font-medium px-3 py-1 rounded-full">React/Next.js</span>
+                            <span
+                                class="bg-[#17b3a6]/10 text-[#17b3a6] text-xs font-medium px-3 py-1 rounded-full">Node.js
+                                (Express)</span>
+                            <span
+                                class="bg-yellow-500/10 text-yellow-700 text-xs font-medium px-3 py-1 rounded-full">PostgreSQL</span>
+                            <span class="bg-red-500/10 text-red-700 text-xs font-medium px-3 py-1 rounded-full">Stripe
+                                API</span>
+                        </div>
+
+                        <h4 class="font-semibold text-gray-700 mt-4 mb-2">My Solution & Impact:</h4>
+                        <ul class="text-gray-600 space-y-2 text-sm">
+                            <li class="flex items-start">
+                                <span class="text-[#17b3a6] text-xl mr-2 leading-none">&bull;</span>
+                                Developed a robust Node.js API with secure PostgreSQL database.
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#17b3a6] text-xl mr-2 leading-none">&bull;</span>
+                                Implemented a responsive React dashboard for stock visualization and order processing.
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#17b3a6] text-xl mr-2 leading-none">&bull;</span>
+                                Key Result: Reduced order processing time by 60% , improving cash flow accuracy.
+                            </li>
+                        </ul>
+
+                        <div class="mt-6 flex gap-3">
+                            <a href="#"
+                                class="px-4 py-2 text-sm border border-[#3f51b5] text-[#3f51b5] font-semibold rounded-lg hover:bg-[#3f51b5] hover:text-white transition duration-300">
+                                View Case Study
+                            </a>
+                            <a href="#contact"
+                                class="px-4 py-2 text-sm bg-[#17b3a6] text-white font-semibold rounded-lg hover:bg-teal-600 transition duration-300">
+                                Contact for Similar Project &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-white rounded-xl shadow-lg flex flex-col overflow-hidden">
+                    <div class="bg-[#f0f4ff] p-4 flex items-center justify-center">
+                        <img src="https://cdn-iledogo.nitrocdn.com/LRBTWzzQmPfrThisrYRlBbOQtGDRepSl/assets/images/optimized/rev-62b3a56/nitropack.ams3.digitaloceanspaces.com/upload/blog/core-web-vitals-pass-rate-ecom-platforms_03bf12e8fb.png"
+                            alt="Inventory Project Screenshot"
+                            class="rounded-lg shadow-xl w-full h-auto object-cover border-4 border-white"
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x350/17b3a6/ffffff?text=Project+2+E-commerce+Page';">
+                    </div>
+
+                    <div class="p-6">
+                        <span class="text-sm font-semibold uppercase text-[#3f51b5] tracking-wider">E-commerce
+                            Acceleration</span>
+                        <h3 class="text-2xl font-bold mt-1 mb-3 text-gray-900">Performance-Tuned E-commerce Site</h3>
+
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span
+                                class="bg-[#17b3a6]/10 text-[#17b3a6] text-xs font-medium px-3 py-1 rounded-full">Next.js
+                                (SSR)</span>
+                            <span
+                                class="bg-[#3f51b5]/10 text-[#3f51b5] text-xs font-medium px-3 py-1 rounded-full">GraphQL
+                                (Apollo)</span>
+                            <span
+                                class="bg-yellow-500/10 text-yellow-700 text-xs font-medium px-3 py-1 rounded-full">AWS
+                                ECS</span>
+                            <span class="bg-red-500/10 text-red-700 text-xs font-medium px-3 py-1 rounded-full">Headless
+                                CMS</span>
+                        </div>
+
+                        <h4 class="font-semibold text-gray-700 mt-4 mb-2">My Solution & Impact:</h4>
+                        <ul class="text-gray-600 space-y-2 text-sm">
+                            <li class="flex items-start">
+                                <span class="text-[#3f51b5] text-xl mr-2 leading-none">&bull;</span>
+                                Migrated frontend to Next.js with SSR for better SEO and load performance.
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#3f51b5] text-xl mr-2 leading-none">&bull;</span>
+                                Optimized queries and implemented a robust caching layer with Redis.
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#3f51b5] text-xl mr-2 leading-none">&bull;</span>
+                                Key Result: Achieved a 95% reduction in cart abandonment due to latency.
+                            </li>
+                        </ul>
+
+                        <div class="mt-6 flex gap-3">
+                            <a href="#"
+                                class="px-4 py-2 text-sm border border-[#3f51b5] text-[#3f51b5] font-semibold rounded-lg hover:bg-[#3f51b5] hover:text-white transition duration-300">
+                                View Case Study
+                            </a>
+                            <a href="#contact"
+                                class="px-4 py-2 text-sm bg-[#17b3a6] text-white font-semibold rounded-lg hover:bg-teal-600 transition duration-300">
+                                Discuss Performance Audit &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-white rounded-xl shadow-lg flex flex-col overflow-hidden">
+                    <div class="bg-white p-4 flex items-center justify-center">
+                        <img src="https://www.cdata.com/embedded/_img/live-data-access.webp"
+                            alt="Project 3 API Platform Screenshot"
+                            class="rounded-lg shadow-xl w-full h-auto object-cover border-4 border-white"
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x350/ffc107/ffffff?text=Project+3+API+Platform';">
+                    </div>
+
+                    <div class="p-6">
+                        <span class="text-sm font-semibold uppercase text-yellow-600 tracking-wider">API & Data
+                            Platform</span>
+                        <h3 class="text-2xl font-bold mt-1 mb-3 text-gray-900">Third-Party API Integration Service</h3>
+
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span
+                                class="bg-[#3f51b5]/10 text-[#3f51b5] text-xs font-medium px-3 py-1 rounded-full">Python
+                                (Django)</span>
+                            <span class="bg-[#17b3a6]/10 text-[#17b3a6] text-xs font-medium px-3 py-1 rounded-full">REST
+                                API</span>
+                            <span
+                                class="bg-yellow-500/10 text-yellow-700 text-xs font-medium px-3 py-1 rounded-full">Docker/AWS</span>
+                            <span class="bg-red-500/10 text-red-700 text-xs font-medium px-3 py-1 rounded-full">Redis
+                                Caching</span>
+                        </div>
+
+                        <h4 class="font-semibold text-gray-700 mt-4 mb-2">My Solution & Impact:</h4>
+                        <ul class="text-gray-600 space-y-2 text-sm">
+                            <li class="flex items-start">
+                                <span class="text-yellow-600 text-xl mr-2 leading-none">&bull;</span>
+                                Built a secure, high-throughput Django API gateway for external data providers.
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-600 text-xl mr-2 leading-none">&bull;</span>
+                                Used Docker for consistent, containerized deployment on AWS.
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-600 text-xl mr-2 leading-none">&bull;</span>
+                                Key Result: Achieved 99.9% API uptime and handled over 1 million requests/day.
+                            </li>
+                        </ul>
+
+                        <div class="mt-6 flex gap-3">
+                            <a href="#"
+                                class="px-4 py-2 text-sm border border-[#3f51b5] text-[#3f51b5] font-semibold rounded-lg hover:bg-[#3f51b5] hover:text-white transition duration-300">
+                                View Case Study
+                            </a>
+                            <a href="#contact"
+                                class="px-4 py-2 text-sm bg-[#17b3a6] text-white font-semibold rounded-lg hover:bg-teal-600 transition duration-300">
+                                Contact for API Work &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-white rounded-xl shadow-lg flex flex-col overflow-hidden">
+                    <div class="bg-white p-4 flex items-center justify-center">
+                        <img src="https://delicate-dawn-ac25646e6d.media.strapiapp.com/meta-features_1157c93dc2.png"
+                            alt="Project 4 Marketing Site Screenshot"
+                            class="rounded-lg shadow-xl w-full h-auto object-cover border-4 border-white"
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x350/ff4081/ffffff?text=Project+4+Marketing+Site';">
+                    </div>
+
+                    <div class="p-6">
+                        <span class="text-sm font-semibold uppercase text-pink-500 tracking-wider">CMS & Marketing
+                            Site</span>
+                        <h3 class="text-2xl font-bold mt-1 mb-3 text-gray-900">Headless CMS & Optimized Frontend</h3>
+
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span
+                                class="bg-[#17b3a6]/10 text-[#17b3a6] text-xs font-medium px-3 py-1 rounded-full">React
+                                (Gatsby)</span>
+                            <span
+                                class="bg-[#3f51b5]/10 text-[#3f51b5] text-xs font-medium px-3 py-1 rounded-full">Headless
+                                CMS</span>
+                            <span
+                                class="bg-yellow-500/10 text-yellow-700 text-xs font-medium px-3 py-1 rounded-full">Vercel</span>
+                            <span class="bg-red-500/10 text-red-700 text-xs font-medium px-3 py-1 rounded-full">SEO
+                                Audit</span>
+                        </div>
+
+                        <h4 class="font-semibold text-gray-700 mt-4 mb-2">My Solution & Impact:</h4>
+                        <ul class="text-gray-600 space-y-2 text-sm">
+                            <li class="flex items-start">
+                                <span class="text-pink-500 text-xl mr-2 leading-none">&bull;</span>
+                                Rebuilt static marketing site using React and a Headless CMS for easier content updates.
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pink-500 text-xl mr-2 leading-none">&bull;</span>
+                                Performed comprehensive SEO optimization and image compression.
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pink-500 text-xl mr-2 leading-none">&bull;</span>
+                                Key Result: Improved Google PageSpeed scores to 90+ and organic traffic by
+                                40% .
+                            </li>
+                        </ul>
+
+                        <div class="mt-6 flex gap-3">
+                            <a href="#"
+                                class="px-4 py-2 text-sm border border-[#3f51b5] text-[#3f51b5] font-semibold rounded-lg hover:bg-[#3f51b5] hover:text-white transition duration-300">
+                                View Case Study
+                            </a>
+                            <a href="#contact"
+                                class="px-4 py-2 text-sm bg-[#17b3a6] text-white font-semibold rounded-lg hover:bg-teal-600 transition duration-300">
+                                Discuss Site Rebuild &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section id="faq" class="py-8 sm:py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
+
+            <div class="w-full max-w-4xl bg-white shadow-2xl rounded-xl p-6 sm:p-10">
+                <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center border-b-2 border-[#3f51b5] pb-3">
+                    Frequently Asked Questions
+                </h1>
+
+                <div class="faq-item mb-4 border border-gray-200 rounded-lg overflow-hidden">
+                    <button
+                        class="faq-question w-full flex justify-between items-center p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none transition duration-300"
+                        onclick="toggleAnswer(this)" aria-expanded="false" aria-controls="faq1-answer">
+                        <span class="text-lg font-semibold text-gray-800">1. What kind of websites do you build?</span>
+                        <span
+                            class="toggle-icon text-2xl text-[#17b3a6] transform transition-transform duration-300">+</span>
+                    </button>
+                    <div id="faq1-answer" class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p class="text-gray-600">
+                                I build almost all kind of websites: Business, Ecommerce, Blogs/News, Portfolio, Landing
+                                Page, Event, Personal. Send me a message and we can discuss. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item mb-4 border border-gray-200 rounded-lg overflow-hidden">
+                    <button
+                        class="faq-question w-full flex justify-between items-center p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none transition duration-300"
+                        onclick="toggleAnswer(this)" aria-expanded="false" aria-controls="faq2-answer">
+                        <span class="text-lg font-semibold text-gray-800">2. What platforms do you use to design my
+                            website?</span>
+                        <span
+                            class="toggle-icon text-2xl text-[#17b3a6] transform transition-transform duration-300">+</span>
+                    </button>
+                    <div id="faq2-answer" class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p class="text-gray-600">
+                                I build websites on all types of platforms like WordPress, Shopify, Wix, Squarespace,
+                                Webflow, Drupal. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item mb-4 border border-gray-200 rounded-lg overflow-hidden">
+                    <button
+                        class="faq-question w-full flex justify-between items-center p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none transition duration-300"
+                        onclick="toggleAnswer(this)" aria-expanded="false" aria-controls="faq3-answer">
+                        <span class="text-lg font-semibold text-gray-800">3. Which platform is best for my business
+                            (WordPress, Wix, Shopify etc)?</span>
+                        <span
+                            class="toggle-icon text-2xl text-[#17b3a6] transform transition-transform duration-300">+</span>
+                    </button>
+                    <div id="faq3-answer" class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p class="text-gray-600">
+                                Each platform has unique features and benefits. Please share your requirements &
+                                business details and I will let you know which platform is best for you. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item mb-4 border border-gray-200 rounded-lg overflow-hidden">
+                    <button
+                        class="faq-question w-full flex justify-between items-center p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none transition duration-300"
+                        onclick="toggleAnswer(this)" aria-expanded="false" aria-controls="faq4-answer">
+                        <span class="text-lg font-semibold text-gray-800">4. What’s the average turnaround time?</span>
+                        <span
+                            class="toggle-icon text-2xl text-[#17b3a6] transform transition-transform duration-300">+</span>
+                    </button>
+                    <div id="faq4-answer" class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p class="text-gray-600">
+                                The turnaround time for a project may vary depending on its complexity, the scope of
+                                work, and urgency. We evaluate every project individually and in detail to provide
+                                options adapted to your needs.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" class="py-3 sm:py-4 bg-gray-900 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+            <h2 class="text-4xl font-extrabold mb-4 mt-12">Want A Highly Profitable Website That Converts Like Crazy...
+            </h2>
+            <p class="text-xl opacity-90 mb-8">Let's connect and discuss how my full-stack expertise can drive your next
+                project success.</p>
+            <a href="#contact"
+                class="inline-block px-6 py-3 bg-[#17b3a6] text-white font-semibold rounded-lg hover:bg-teal-600 transition duration-300 cta-button">
+                Let's Start Building &rarr;
+            </a>
+
+            <nav class="flex justify-center space-x-6 text-lg mt-16 mb-8 border-t border-gray-700 pt-8">
+                <a href="#" class="text-white hover:text-[#17b3a6] font-medium transition duration-300">Home</a>
+                <a href="#our-services"
+                    class="text-white hover:text-[#17b3a6] font-medium transition duration-300">Services</a>
+                <a href="#projects"
+                    class="text-white hover:text-[#17b3a6] font-medium transition duration-300">Portfolio</a>
+                <a href="#reviews"
+                    class="text-white hover:text-[#17b3a6] font-medium transition duration-300">Testimonials</a>
+                <a href="#contact"
+                    class="text-white hover:text-[#17b3a6] font-medium transition duration-300">Contact</a>
+            </nav>
+
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="text-white hover:text-[#17b3a6] text-3xl transition duration-300"
+                    aria-label="LinkedIn">
+                    <span class="font-sans"><i class="fa-brands fa-linkedin"></i></span>
+                </a>
+                <a href="#" class="text-white hover:text-[#17b3a6] text-3xl transition duration-300"
+                    aria-label="LinkedIn">
+                    <span class="font-sans"><i class="fa-brands fa-instagram"></i></span>
+                </a>
+                <a href="#" class="text-white hover:text-[#17b3a6] text-3xl transition duration-300"
+                    aria-label="LinkedIn">
+                    <span class="font-sans"><i class="fa-brands fa-whatsapp"></i></span>
+                </a>
+               <a href="#" class="text-white hover:text-[#17b3a6] text-3xl transition duration-300"
+                    aria-label="LinkedIn">
+                    <span class="font-sans"><i class="fa fa-envelope" ></i>
+</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="py-8 sm:py-12 bg-black text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <footer>
+                <p class="text-gray-400 text-sm">
+                    &copy; 2025 Kashaf Shoukat. Full-Stack Solutions Architect. All rights reserved.
+                </p>
+            </footer>
+        </div>
+    </section>
+    <script>
+
+        function toggleAnswer(button) {
+            const item = button.closest('.faq-item');
+            const answer = item.querySelector('.faq-answer');
+            const icon = item.querySelector('.toggle-icon');
+
+            // Determine current state
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+            // Collapse all other open answers
+            document.querySelectorAll('.faq-question[aria-expanded="true"]').forEach(otherButton => {
+                if (otherButton !== button) {
+                    const otherItem = otherButton.closest('.faq-item');
+                    const otherAnswer = otherItem.querySelector('.faq-answer');
+                    const otherIcon = otherItem.querySelector('.toggle-icon');
+
+                    // Collapse
+                    otherAnswer.style.maxHeight = '0px';
+                    // Reset icon rotation (using Tailwind class)
+                    otherIcon.classList.remove('rotate-45');
+                    otherButton.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+
+            if (isExpanded) {
+                // Collapse the current answer
+                answer.style.maxHeight = '0px';
+                icon.classList.remove('rotate-45');
+                button.setAttribute('aria-expanded', 'false');
+            } else {
+                // Expand the current answer
+                // Use scrollHeight to dynamically set the height for smooth CSS transition
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.classList.add('rotate-45');
+                button.setAttribute('aria-expanded', 'true');
+            }
+        }
+        
+        // --- NEW JAVASCRIPT FOR MOBILE SIDEBAR ---
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mobile-sidebar');
+            // Check if the sidebar is currently hidden (has the translate-x-full class)
+            const isHidden = sidebar.classList.contains('translate-x-full');
+
+            if (isHidden) {
+                // Show sidebar: remove the class that hides it
+                sidebar.classList.remove('translate-x-full');
+            } else {
+                // Hide sidebar: add the class that hides it
+                sidebar.classList.add('translate-x-full');
+            }
+        }
+    </script>
+</body>
+
+</html>
